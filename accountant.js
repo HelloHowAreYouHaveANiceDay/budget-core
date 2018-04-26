@@ -15,7 +15,4 @@ const replacePostDate = changeKeyName('Post Date', 'PostDate');
 
 const transform = R.compose(replaceTransDate, replacePostDate);
 
-const transformCsv = R.composeP(R.map(transform), CSV.get);
-
-module.exports.transformCsv = transformCsv;
 
