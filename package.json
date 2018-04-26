@@ -1,0 +1,12 @@
+{
+  "name": "budget_core",
+  "version": "0.0.1",
+  "description": "easier to test core library for budget",
+  "main": "index.js",
+  "author": "liboli.lilibo@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^5.0.0",
+    "ramda": "^0.25.0"
+  }
+}
