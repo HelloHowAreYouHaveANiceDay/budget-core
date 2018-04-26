@@ -31,7 +31,6 @@ const parse = (csvString) => {
   const collection = [];
   R.forEach((row) => {
     const rowOb = rowToObject(headers, splitComma(row));
-    console.log(rowOb);
     collection.push(rowOb);
   }, data);
   //console.log(collection);
@@ -39,3 +38,4 @@ const parse = (csvString) => {
 };
 
 module.exports.parse = parse;
+module.exports.getHeaders = headerRow;

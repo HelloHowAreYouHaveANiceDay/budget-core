@@ -8,16 +8,19 @@ const configuration = require('./configuration.json');
 const rootPath = configuration.root;
 const sources = configuration.sources;
 const firstFolder = sources[2];
-const directory = folder.readDir(`${rootPath}\\${firstFolder.folderName}`)
 
 const readCsv = (fileName) => {
   const file = folder.readFile(`${rootPath}\\${firstFolder.folderName}\\${fileName}`);
   file.then((result)=>{
    // console.log(result);
-    console.log(csv.parse(result));
+    console.log(csv.parse(result).length);
+  }).catch((err) => {
+    throw err;
   })
 }
 
-directory.then((result)=>{
-  R.forEach(readCsv, result);
-})
+// directory.then((result)=>{
+//   R.forEach(readCsv, result);
+// })
+
+console.log(configuration.types);
