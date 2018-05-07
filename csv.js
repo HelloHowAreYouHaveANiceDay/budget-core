@@ -25,6 +25,8 @@ const rowToObject = R.curry((headers, values) => {
 });
 
 
+//
+
 const parse = (csvString) => {
   const headers = splitComma(headerRow(csvString));
   const data = dataRows(csvString);
