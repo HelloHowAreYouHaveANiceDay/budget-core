@@ -8,12 +8,20 @@ const sanitizeR = string => string.split('\r').join('');
 const splitLine = split('\n');
 const splitComma = split(',');
 
+/**
+ * gets headers from csv string
+ * @param {string} csvString
+ *
+ * @returns {Array} array of headers
+ */
 const headerRow = R.pipe(sanitizeR, splitLine, R.head);
 const dataRows = R.pipe(sanitizeR, splitLine, R.drop(1));
 
 const addProperty = R.curry((object, pair) => {
-  object[pair[0]] = pair[1];
-  return object;
+  const newObject = object;
+  const pair1 = pair[1];
+  newObject[pair[0]] = pair1;
+  return newObject;
 });
 
 // needs refactor
@@ -24,9 +32,12 @@ const rowToObject = R.curry((headers, values) => {
   return newObject;
 });
 
-
-//
-
+/**
+ * returns a colleciton of objects from a csv string
+ * @param {string} csvString csv string with linebreaks \n or \n\r
+ *
+ * @returns {Array} collection collection of objects keyed by headers
+ */
 const parse = (csvString) => {
   const headers = splitComma(headerRow(csvString));
   const data = dataRows(csvString);
@@ -35,7 +46,7 @@ const parse = (csvString) => {
     const rowOb = rowToObject(headers, splitComma(row));
     collection.push(rowOb);
   }, data);
-  //console.log(collection);
+  // console.log(collection);
   return collection;
 };
 

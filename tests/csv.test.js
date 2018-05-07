@@ -13,7 +13,6 @@ test('getHeaders gets headers from string', () => {
 test('parse parses csv strings from file', () => {
   const mock = folder.readFile('./example_data/chase_cc_mock.csv');
   return mock.then((result) => {
-    console.log(csv.parse(result).length);
     expect(csv.parse(result).length).toEqual(101);
     expect(csv.parse(result)).toBeInstanceOf(Array);
   });
@@ -24,3 +23,4 @@ test('join joins two csv strings', () => {
   const stringB = 'head1,head2,head3\nval4,val5,val6';
   expect(csv.join(stringA, stringB)).toEqual('');
 });
+
