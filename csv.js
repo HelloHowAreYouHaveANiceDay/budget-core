@@ -5,17 +5,9 @@ const H = require('./helper');
 
 // pure
 
-const sanitizeR = string => string.split('\r').join('');
+const sanitizeR = R.pipe(H.split('\r'), R.join(''));
 const splitLine = H.split('\n');
 const splitComma = H.split(',');
-
-const addProperty = R.curry((object, pair) => {
-  const newObject = object;
-  const pair1 = pair[1];
-  newObject[pair[0]] = pair1;
-  return newObject;
-});
-
 
 /**
  * gets headers from csv string
@@ -30,7 +22,7 @@ const dataRows = R.pipe(sanitizeR, splitLine, R.drop(1));
 const rowToObject = R.curry((headers, values) => {
   const newObject = {};
   const pairs = R.zip(headers, values);
-  R.forEach(addProperty(newObject), pairs);
+  R.forEach(H.addProperty(newObject), pairs);
   return newObject;
 });
 
@@ -53,7 +45,7 @@ const parse = (csvString) => {
   return collection;
 };
 
-// const join = R.reduce((a, b) => )
+module.exports.join = R.reduce((a, b) => R.join('')([a, b]), 0);
 
 module.exports.parse = parse;
 module.exports.getHeaders = headerRow;

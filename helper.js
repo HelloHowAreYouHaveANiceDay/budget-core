@@ -1,5 +1,8 @@
 const R = require('ramda');
 
+
+// ARRAY HELPERS
+
 /**
  * splits string by delimiter
  * @param {string} delimiter character to delimit by
@@ -21,3 +24,19 @@ module.exports.shift = (array) => {
   arrayClone.shift();
   return arrayClone;
 };
+
+// OBJECT HELPERS
+
+/**
+ * returns object with tuple added as property
+ * @param {object} object to add to
+ * @param {tuple} [key, value] tuple to add
+ *
+ * @returns {object} cloned object with property added
+ */
+module.exports.addProperty = R.curry((object, pair) => {
+  const newObject = object;
+  const pair1 = pair[1];
+  newObject[pair[0]] = pair1;
+  return newObject;
+});

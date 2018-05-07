@@ -2,7 +2,10 @@ const helper = require('../helper');
 
 test('splt splits string by character', () => {
   const string = 'one,two,three,four,five';
-  expect(helper.split(',', string)).toEqual([
+  const test1 = helper.split(',', string);
+  expect(test1)
+    .toBeInstanceOf(Array);
+  expect(test1).toEqual([
     'one',
     'two',
     'three',
@@ -13,10 +16,27 @@ test('splt splits string by character', () => {
 
 test('shift takes an array and returns an array with the first element removed', () => {
   const testArray = ['zero', 'one', 'two', 'three'];
-  expect(helper.shift(testArray))
+  const test1 = helper.shift(testArray);
+  expect(test1)
+    .toBeInstanceOf(Array);
+  expect(test1)
     .toEqual([
       'one',
       'two',
       'three',
     ]);
+});
+
+
+test('addProperty adds property to object', () => {
+  const testObject = { keyOne: 'propOne' };
+  const testTuple = ['keyTwo', 'propTwo'];
+  const test1 = helper.addProperty(testObject, testTuple);
+  expect(test1)
+    .toBeInstanceOf(Object);
+  expect(test1)
+    .toEqual({
+      keyOne: 'propOne',
+      keyTwo: 'propTwo',
+    });
 });
