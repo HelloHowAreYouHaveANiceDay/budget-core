@@ -1,5 +1,4 @@
 const R = require('ramda');
-const fs = require('fs-extra');
 
 const H = require('./helper');
 
@@ -45,7 +44,17 @@ const parse = (csvString) => {
   return collection;
 };
 
-module.exports.join = R.reduce((a, b) => R.join('')([a, b]), 0);
+/**
+ * joins a series of csvs to the header csv
+ * @param {string} headCsv csvString to join to
+ * @param {Array} tailCsvs csvStrings to join to
+ *
+ * @returns {string} full csvString with the tail strings added
+ * */
+module.exports.join = R.curry((headCsv, tailCsvs) => {
+  const dataString = R.join('\n', tailCsvs.map(dataRows));
+  return R.join('\n', [headCsv, dataString]);
+});
 
 module.exports.parse = parse;
 module.exports.getHeaders = headerRow;

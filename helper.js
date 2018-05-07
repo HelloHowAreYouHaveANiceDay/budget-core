@@ -1,7 +1,9 @@
 const R = require('ramda');
 
 
-// ARRAY HELPERS
+// ////////////////
+// ARRAY HELPERS //
+// ////////////////
 
 /**
  * splits string by delimiter
@@ -10,7 +12,6 @@ const R = require('ramda');
  *
  * @returns {array} resulting strings in an array
  */
-
 module.exports.split = R.curry((delimiter, string) => string.split(delimiter));
 
 /**
@@ -25,7 +26,18 @@ module.exports.shift = (array) => {
   return arrayClone;
 };
 
-// OBJECT HELPERS
+/**
+ * joins two strings
+ * @param {string} a first string
+ * @param {string} b second string
+ *
+ * @returns {stirng} string 'ab'
+ */
+module.exports.join = (a, b) => R.join('', [a, b]);
+
+// //////////////////
+// OBJECT HELPERS //
+// //////////////////
 
 /**
  * returns object with tuple added as property

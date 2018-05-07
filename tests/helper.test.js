@@ -40,3 +40,11 @@ test('addProperty adds property to object', () => {
       keyTwo: 'propTwo',
     });
 });
+
+test('join joings two strings', () => {
+  const string1 = 'string1';
+  const string2 = 'string2';
+  const test1 = helper.join(string1, string2);
+  expect(test1)
+    .toEqual('string1string2');
+});
