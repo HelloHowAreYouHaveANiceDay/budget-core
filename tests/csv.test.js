@@ -21,6 +21,6 @@ test('parse parses csv strings from file', () => {
 test('join joins two csv strings', () => {
   const stringA = 'head1,head2,head3\nval1,val2,val3';
   const stringB = 'head1,head2,head3\nval4,val5,val6';
-  expect(csv.join(stringA, stringB)).toEqual('');
+  expect(csv.join(stringA, stringB)).toEqual('head1,head2,head3\nval1,val2,val3\nval4,val5,val6');
 });
 

@@ -1,12 +1,21 @@
 const R = require('ramda');
 const fs = require('fs-extra');
 
+const H = require('./helper');
+
 // pure
-const split = R.curry((delimiter, string) => string.split(delimiter));
 
 const sanitizeR = string => string.split('\r').join('');
-const splitLine = split('\n');
-const splitComma = split(',');
+const splitLine = H.split('\n');
+const splitComma = H.split(',');
+
+const addProperty = R.curry((object, pair) => {
+  const newObject = object;
+  const pair1 = pair[1];
+  newObject[pair[0]] = pair1;
+  return newObject;
+});
+
 
 /**
  * gets headers from csv string
@@ -17,13 +26,6 @@ const splitComma = split(',');
 const headerRow = R.pipe(sanitizeR, splitLine, R.head);
 const dataRows = R.pipe(sanitizeR, splitLine, R.drop(1));
 
-const addProperty = R.curry((object, pair) => {
-  const newObject = object;
-  const pair1 = pair[1];
-  newObject[pair[0]] = pair1;
-  return newObject;
-});
-
 // needs refactor
 const rowToObject = R.curry((headers, values) => {
   const newObject = {};
@@ -31,6 +33,7 @@ const rowToObject = R.curry((headers, values) => {
   R.forEach(addProperty(newObject), pairs);
   return newObject;
 });
+
 
 /**
  * returns a colleciton of objects from a csv string
@@ -49,6 +52,8 @@ const parse = (csvString) => {
   // console.log(collection);
   return collection;
 };
+
+// const join = R.reduce((a, b) => )
 
 module.exports.parse = parse;
 module.exports.getHeaders = headerRow;
