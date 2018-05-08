@@ -1,3 +1,5 @@
 const JSON = require('../json');
 
-test('')
+test('getKeys gets Keys from JSON file', () => {
+
+});

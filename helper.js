@@ -52,3 +52,24 @@ module.exports.addProperty = R.curry((object, pair) => {
   newObject[pair[0]] = pair1;
   return newObject;
 });
+
+/**
+ * returns keys from Object
+ * @param {object}
+ * 
+ * @returns {array} keys
+ */
+const getKeys = o => Object.keys(o);
+module.exports.getKeys = getKeys;
+
+// /////////////////////
+// COLLECTION HELPERS //
+// /////////////////////
+
+/**
+ * returns array of all unique keys in collection
+ * @param {collection} collection of objects
+ *
+ * @returns {array} unique keys in collection
+ */
+module.exports.flatKeys = R.pipe(R.map(getKeys), R.flatten, R.uniq);

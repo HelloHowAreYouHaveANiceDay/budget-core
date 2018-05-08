@@ -17,6 +17,6 @@ const R = require('ramda');
 /**
  * toCsv converts a JSON collection to a csv
  * @param {string} filepath
- * 
- * @returns {}
+ *
+ * @returns {string} csv as string
  */
