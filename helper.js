@@ -92,6 +92,7 @@ const firstVal = o => R.values(o)[0];
  * @returns {array} unique first level keys
  */
 const flatValKeys = R.pipe(R.values, R.map(R.keys), R.flatten, R.uniq);
+module.exports.flatValKeys = flatValKeys;
 
 /**
  * returns the keys of the first value of an object

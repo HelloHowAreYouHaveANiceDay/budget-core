@@ -2,22 +2,6 @@ const R = require('ramda');
 
 const H = require('./helper');
 
-const keysLength = R.pipe(require, R.keys, R.length);
-
-const valLength = R.pipe(require, R.values, R.length);
-
-
-const isArray = o => typeof o === 'array';
-
-
-const isEqual = R.curry((a, b, c) => {
-  return a(c) === b(c);
-});
-
-const hasArray = R.all(isArray);
-
-
-
 /**
  * getKeys from JSON file
  * @param {string} filepath
@@ -36,11 +20,20 @@ module.exports.getKeys = R.pipe(require, H.getKeys);
 module.exports.isValid = R.pipe(R.values, R.is(Array));
 
 /**
- * toCsv converts a JSON collection to a csv
- * @param {string} filepath
+ * toCsv converts a keyedTable to a csv
+ * @param {object} keyedTable 
  *
  * @returns {string} csv as string
  */
+module.exports.KTtoCSV = o => {
+  const headers = H.flatValKeys(o);
+  const values = R.pipe(R.map(R.values), R.values)(o)
+  const csvArray = R.prepend(headers, values);
+  // console.log(csvArray);
+  const toCsvString = R.pipe(R.join('\n'));
+  // console.log(toCsvString(csvArray));
+  return toCsvString(csvArray);
+}
 
 /**
  * getDepth returns depth from JSON file
