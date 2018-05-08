@@ -21,25 +21,25 @@ module.exports.isValid = R.pipe(R.values, R.is(Array));
 
 /**
  * toCsv converts a keyedTable to a csv
- * @param {object} keyedTable 
+ * @param {object} keyedTable
  *
  * @returns {string} csv as string
  */
-module.exports.KTtoCSV = o => {
+module.exports.KTtoCSV = (o) => {
   const headers = H.flatValKeys(o);
-  const values = R.pipe(R.map(R.values), R.values)(o)
+  const values = R.pipe(R.map(R.values), R.values)(o);
   const csvArray = R.prepend(headers, values);
   // console.log(csvArray);
   const toCsvString = R.pipe(R.join('\n'));
   // console.log(toCsvString(csvArray));
   return toCsvString(csvArray);
-}
+};
 
 /**
  * getDepth returns depth from JSON file
  * @param {string} filepath
- * 
- * @returns {int} depth 
+ *
+ * @returns {int} depth
  */
 // const getDepth = filepath => {
 //   const file = require(filepath);

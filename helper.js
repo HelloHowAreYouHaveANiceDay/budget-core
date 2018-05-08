@@ -9,7 +9,7 @@ const R = require('ramda');
  * @param {fn} a
  * @param {fn} b
  * @param {any} c
- * 
+ *
  * @returns {bool}
  */
 const isEqual = R.curry((a, b, c) => R.equals(a(c), b(c)));
@@ -73,7 +73,7 @@ module.exports.addProperty = R.curry((object, pair) => {
  *
  * @returns {fn} passthroug
  */
-const trace = R.curry((tag, a) => {console.log('tag', a); return a; });
+const trace = R.curry((tag, a) => { console.log('tag', a); return a; });
 
 // const log = trace('tag');
 
@@ -97,7 +97,7 @@ module.exports.flatValKeys = flatValKeys;
 /**
  * returns the keys of the first value of an object
  * @param {object}
- * 
+ *
  * @returns {array} keys
  */
 const firstValKeys = R.pipe(firstVal, R.keys);
@@ -121,7 +121,8 @@ const isCollectionOfObjects = R.pipe(R.values, R.map(R.type), R.all(R.equals('Ob
 
 /**
  * isKeyedTable
- * keytable is defined as object with 1st level depth of equal keys and values where all values are objects
+ * keytable is defined as object with 1st level depth of
+ * equal keys and values where all values are objects
  * and their keys are all equal
  * @param {object} object
  *

@@ -16,7 +16,6 @@ test('getKeys gets Keys from JSON file', () => {
 
 test('isValid checks whether JSON file contains a valid collection', () => {
   const filepath = path.join(__dirname, '../example_data/f_players_mock.json');
-  const testOb = require(filepath);
   const test1 = J.isValid(filepath);
   expect(test1)
     .toEqual(true);
