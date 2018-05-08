@@ -1,5 +1,19 @@
 const R = require('ramda');
 
+// /////////////
+// FN HELPERS //
+// /////////////
+
+/**
+ * a, b, c such that a(c) === b(c)
+ * @param {fn} a
+ * @param {fn} b
+ * @param {any} c
+ * 
+ * @returns {bool}
+ */
+const isEqual = R.curry((a, b, c) => R.equals(a(c), b(c)));
+
 // ////////////////
 // ARRAY HELPERS //
 // ////////////////
@@ -52,20 +66,60 @@ module.exports.addProperty = R.curry((object, pair) => {
   return newObject;
 });
 
+/**
+ * passthrough function for tag logging
+ * @param {string} tab tag for logger
+ * @param {fn} passthrough
+ *
+ * @returns {fn} passthroug
+ */
 const trace = R.curry((tag, a) => {console.log('tag', a); return a; });
 
-const log = trace('tag')
-const firstProp = o => R.values(o)[0];
-const flatKeys = R.pipe(R.values, R.map(R.keys), R.flatten, R.uniq, log);
-const firstObjectKeys = R.pipe(firstProp, R.keys, log);
+// const log = trace('tag');
 
-const isEqual = R.curry((a, b, c) => a(c).length === b(c).length);
+/**
+ * grabs first value of object
+ * @param {object}
+ *
+ * @returns {any} first value
+ */
+const firstVal = o => R.values(o)[0];
 
-const isListableCollection = isEqual(flatKeys, firstObjectKeys);
+/**
+ * returns a flat list of unique keys from first level an object's values
+ * @param {object}
+ *
+ * @returns {array} unique first level keys
+ */
+const flatValKeys = R.pipe(R.values, R.map(R.keys), R.flatten, R.uniq);
+
+/**
+ * returns the keys of the first value of an object
+ * @param {object}
+ * 
+ * @returns {array} keys
+ */
+const firstValKeys = R.pipe(firstVal, R.keys);
+
+/**
+ * returns true if object is listable
+ * listable is defined as if the keys of the first value equal the flat value keys of the object
+ * @param {object}
+ *
+ * @returns {bool}
+ */
+const isListableCollection = isEqual(flatValKeys, firstValKeys);
+
+/**
+ * returns true if all values of the object is of type 'Object'
+ * @param {object}
+ *
+ * @returns {bool}
+ */
 const isCollectionOfObjects = R.pipe(R.values, R.map(R.type), R.all(R.equals('Object')));
 
 /**
- * isKeyedTable if length of object keys === length of object values
+ * isKeyedTable
  * keytable is defined as object with 1st level depth of equal keys and values where all values are objects
  * and their keys are all equal
  * @param {object} object
@@ -73,6 +127,7 @@ const isCollectionOfObjects = R.pipe(R.values, R.map(R.type), R.all(R.equals('Ob
  * @returns {boo} whether it is KeyedTable
  */
 module.exports.isKeyedTable = R.allPass([isListableCollection, isCollectionOfObjects]);
+
 /**
  * returns keys from Object
  * @param {object}
