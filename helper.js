@@ -52,6 +52,18 @@ module.exports.addProperty = R.curry((object, pair) => {
   return newObject;
 });
 
+const trace = R.curry((tag, a) => {console.log('tag', a); return a; });
+
+const log = trace('tag')
+const firstProp = o => R.values(o)[0];
+const flatKeys = R.pipe(R.values, R.map(R.keys), R.flatten, R.uniq, log);
+const firstObjectKeys = R.pipe(firstProp, R.keys, log);
+
+const isEqual = R.curry((a, b, c) => a(c).length === b(c).length);
+
+const isListableCollection = isEqual(flatKeys, firstObjectKeys);
+const isCollectionOfObjects = R.pipe(R.values, R.map(R.type), R.all(R.equals('Object')));
+
 /**
  * isKeyedTable if length of object keys === length of object values
  * keytable is defined as object with 1st level depth of equal keys and values where all values are objects
@@ -60,12 +72,11 @@ module.exports.addProperty = R.curry((object, pair) => {
  *
  * @returns {boo} whether it is KeyedTable
  */
-module.exports.isKeyedTable = R.pipe(R.values, R.map(R.type), R.all(R.equals('Object')));
-
+module.exports.isKeyedTable = R.allPass([isListableCollection, isCollectionOfObjects]);
 /**
  * returns keys from Object
  * @param {object}
- * 
+ *
  * @returns {array} keys
  */
 const getKeys = o => Object.keys(o);

@@ -70,17 +70,23 @@ test('getKeys returns keys of object', () => {
     .toEqual(['keyOne', 'keyTwo']);
 });
 
-test('isKeyedTable checkes', () => {
+test.only('isKeyedTable checkes', () => {
   const gamePath = path.join(__dirname, '../example_data/f_game_mock.json');
   const game = require(gamePath);
-  const test2 = helper.isKeyedTable(game);
   const test1 = helper.isKeyedTable(game['2016122400'].home.stats.receiving);
-  console.log(game['2016122400'].home.stats.receiving);
+  // const test2 = helper.isKeyedTable(game);
+  // const test3 = helper.isKeyedTable(game['2016122400'].home);
+  // const test4 = helper.isKeyedTable(game['2016122400'].home.stats);
+  // console.log(game['2016122400'].home.stats.receiving);
   // console.log(test1)
-  expect(test2)
-    .toEqual(false);
   expect(test1)
     .toEqual(true);
+  // expect(test2)
+  //   .toEqual(false);
+  // expect(test3)
+  //   .toEqual(false);
+  // expect(test4)
+  //   .toEqual(false);
 });
 
 // /////////////////////
