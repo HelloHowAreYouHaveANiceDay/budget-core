@@ -2,7 +2,21 @@ const R = require('ramda');
 
 const H = require('./helper');
 
-const req = require;
+const keysLength = R.pipe(require, R.keys, R.length);
+
+const valLength = R.pipe(require, R.values, R.length);
+
+
+const isArray = o => typeof o === 'array';
+
+
+const isEqual = R.curry((a, b, c) => {
+  return a(c) === b(c);
+});
+
+const hasArray = R.all(isArray);
+
+
 
 /**
  * getKeys from JSON file
@@ -11,6 +25,7 @@ const req = require;
  * @returns {array} keys from json objects
  */
 module.exports.getKeys = R.pipe(require, H.getKeys);
+
 
 /**
  * isValid checks whether JSON contails a valid collection

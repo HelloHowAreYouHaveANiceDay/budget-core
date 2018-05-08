@@ -1,6 +1,5 @@
 const R = require('ramda');
 
-
 // ////////////////
 // ARRAY HELPERS //
 // ////////////////
@@ -52,6 +51,16 @@ module.exports.addProperty = R.curry((object, pair) => {
   newObject[pair[0]] = pair1;
   return newObject;
 });
+
+/**
+ * isKeyedTable if length of object keys === length of object values
+ * keytable is defined as object with 1st level depth of equal keys and values where all values are objects
+ * and their keys are all equal
+ * @param {object} object
+ *
+ * @returns {boo} whether it is KeyedTable
+ */
+module.exports.isKeyedTable = R.pipe(R.values, R.map(R.type), R.all(R.equals('Object')));
 
 /**
  * returns keys from Object

@@ -1,3 +1,5 @@
+const path = require('path');
+
 const helper = require('../helper');
 
 // ////////////////
@@ -68,6 +70,19 @@ test('getKeys returns keys of object', () => {
     .toEqual(['keyOne', 'keyTwo']);
 });
 
+test('isKeyedTable checkes', () => {
+  const gamePath = path.join(__dirname, '../example_data/f_game_mock.json');
+  const game = require(gamePath);
+  const test2 = helper.isKeyedTable(game);
+  const test1 = helper.isKeyedTable(game['2016122400'].home.stats.receiving);
+  console.log(game['2016122400'].home.stats.receiving);
+  // console.log(test1)
+  expect(test2)
+    .toEqual(false);
+  expect(test1)
+    .toEqual(true);
+});
+
 // /////////////////////
 // COLLECTION HELPERS //
 // /////////////////////
@@ -78,7 +93,7 @@ test('flatKeys takes collection and returns all keys', () => {
     keyOne: 'propOne',
     keyTwo: 'propTwo',
   };
-  const collection = [one, two]
+  const collection = [one, two];
   const test1 = helper.flatKeys(collection);
   expect(test1)
     .toBeInstanceOf(Array);
