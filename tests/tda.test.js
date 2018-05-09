@@ -28,3 +28,18 @@ test('isTDA verifies testData.tda as a 2D array capable of being operated on', (
   expect(T.isTDA(testData.tdaError))
     .toEqual(false);
 });
+
+test('getColByIndex gets column by headerIndex', () => {
+  expect(T.getColByIndex(testData.tda, 0))
+    .toEqual([
+      ['col1'],
+      ['r1c1'],
+      ['r2c1'],
+    ]);
+  expect(T.getColByIndex(testData.tda, 2))
+    .toEqual([
+      ['col3'],
+      ['r1c3'],
+      ['r2c3'],
+    ]);
+});
