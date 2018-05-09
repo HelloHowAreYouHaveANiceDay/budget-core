@@ -56,5 +56,9 @@ module.exports.join = R.curry((headCsv, tailCsvs) => {
   return R.join('\n', [headCsv, dataString]);
 });
 
+/**
+ * pulls folder
+ */
+
 module.exports.parse = parse;
 module.exports.getHeaders = headerRow;

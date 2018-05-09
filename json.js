@@ -36,6 +36,19 @@ module.exports.KTtoCSV = (o) => {
 };
 
 /**
+ * KTtoTDA converts a keyTable to a 2D array
+ * @param {object} keyedTable
+ *
+ * @returns {array} 2D array
+ */
+module.exports.KTtoTDA = (o) => {
+  const headers = H.flatValKeys(o);
+  const values = R.pipe(R.map(R.values), R.values)(o);
+  const csvArray = R.prepend(headers, values);
+  return csvArray;
+};
+
+/**
  * getDepth returns depth from JSON file
  * @param {string} filepath
  *

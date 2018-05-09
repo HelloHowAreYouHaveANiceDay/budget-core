@@ -16,7 +16,7 @@ test('parse parses csv strings from file', () => {
   });
 });
 
-test('join joins two csv strings', () => {
+test('join joins tail csvs into one csv strings', () => {
   const stringA = 'head1,head2,head3\nval1,val2,val3';
   const stringB = 'head1,head2,head3\nval4,val5,val6';
   const stringC = 'head1,head2,head3\nval7,val8,val9';

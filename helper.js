@@ -14,6 +14,17 @@ const R = require('ramda');
  */
 const isEqual = R.curry((a, b, c) => R.equals(a(c), b(c)));
 
+/**
+ * passthrough function for tag logging
+ * @param {string} tab tag for logger
+ * @param {fn} passthrough
+ *
+ * @returns {fn} passthroug
+ */
+const trace = R.curry((tag, a) => { console.log('tag', a); return a; });
+module.exports.trace = trace;
+
+
 // ////////////////
 // ARRAY HELPERS //
 // ////////////////
@@ -65,17 +76,6 @@ module.exports.addProperty = R.curry((object, pair) => {
   newObject[pair[0]] = pair1;
   return newObject;
 });
-
-/**
- * passthrough function for tag logging
- * @param {string} tab tag for logger
- * @param {fn} passthrough
- *
- * @returns {fn} passthroug
- */
-const trace = R.curry((tag, a) => { console.log('tag', a); return a; });
-
-// const log = trace('tag');
 
 /**
  * grabs first value of object

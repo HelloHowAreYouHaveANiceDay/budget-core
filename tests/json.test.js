@@ -44,6 +44,27 @@ test('KTtoCSV turns keyedTable to csv string', () => {
     .toEqual(R.values(table));
 });
 
+test('KTtoTDA turns keyedTable to a 2d array', () => {
+  const table = {
+    keyOne: {
+      tid: 'keyOne',
+      kOne: 'p1',
+      kTwo: 'p2',
+    },
+    keyTwo: {
+      tid: 'keyTwo',
+      kOne: 'p3',
+      kTwo: 'p4',
+    },
+  };
+  const TDA1 = [['tid', 'kOne', 'kTwo'], ['keyOne', 'p1', 'p2'], ['keyTwo', 'p3', 'p4']];
+  const test1 = J.KTtoTDA(table);
+  expect(test1)
+    .toBeInstanceOf(Array);
+  expect(test1)
+    .toEqual(TDA1);
+});
+
 // test('getDepth gets depth from JSON file', () => {
 //   const filepath = path.join(__dirname, '../example_data/f_game_mock.json');
 //   const test1 = J.getDepth(filepath);
