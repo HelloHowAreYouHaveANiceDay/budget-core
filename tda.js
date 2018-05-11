@@ -30,6 +30,8 @@ const headersEqualRowsLength = a => equalsHeadersLength(a)(rowsLength(a));
  */
 module.exports.isTDA = R.allPass([headersEqualRowsLength]);
 
+// COLUMNS
+
 /**
  * getColByIndex returns column
  * @param {array} 2D array
@@ -37,4 +39,29 @@ module.exports.isTDA = R.allPass([headersEqualRowsLength]);
  *
  * @returns {array} 2D array of the column
  */
-module.exports.getColByIndex = (a, i) => R.map(graft, R.map(getValByIndex(i), a));
+const getColByIndex = (a, i) => R.map(graft, R.map(getValByIndex(i), a));
+module.exports.getColByIndex = getColByIndex;
+
+/**
+ * getColByName returns column from column name
+ * @param {array} 2D array
+ * @param {string} columnName 
+ *
+ * @returns {array} 2D array of the column
+ */
+module.exports.getColByName = (a, n) => {
+  const index = R.pipe(R.head, R.indexOf(n));
+  return getColByIndex(a, index(a))
+}
+
+/**
+ * getColType returns type based on values in column
+ * @param {array} 2D array column
+ *
+ * @returns {string} type of the column
+ */
+const getColType = (a, c) => {
+
+}
+
+// ROWS

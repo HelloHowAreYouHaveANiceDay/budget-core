@@ -43,3 +43,22 @@ test('getColByIndex gets column by headerIndex', () => {
       ['r2c3'],
     ]);
 });
+
+test('getColByName gets column by headerName', () => {
+  expect(T.getColByName(testData.tda, 'col1'))
+    .toEqual([
+      ['col1'],
+      ['r1c1'],
+      ['r2c1'],
+    ]);
+  expect(T.getColByName(testData.tda, 'col3'))
+    .toEqual([
+      ['col3'],
+      ['r1c3'],
+      ['r2c3'],
+    ]);
+});
+
+test('colType checks string for a coercible type', () => {
+
+});
