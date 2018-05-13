@@ -12,7 +12,7 @@ module.exports.getKeys = R.pipe(require, H.getKeys);
 
 
 /**
- * isValid checks whether JSON contails a valid collection
+ * isValid checks whether JSON contains a valid collection
  * @param {string} filepath
  *
  * @returns {bool} whether file is a valid collection

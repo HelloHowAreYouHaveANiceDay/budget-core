@@ -1,4 +1,18 @@
 const R = require('ramda');
+const moment = require('moment');
+
+// /////////////////
+// STRING HELPERS //
+// ////////////////
+
+/**
+ * isDate checks if string is a parseable date
+ * @param {string} date as string
+ * 
+ * @returns {bool} if parsible date by moment
+ */
+const isDate = d => moment(d).isValid();
+module.exports.isDate = isDate;
 
 // /////////////
 // FN HELPERS //

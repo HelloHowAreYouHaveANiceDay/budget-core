@@ -3,6 +3,20 @@ const path = require('path');
 const helper = require('../helper');
 
 // ////////////////
+// STRING HELPERS //
+// ////////////////
+
+test('tests string for coercible types', () => {
+  expect(helper.isDate('01/01/1990'))
+    .toEqual(true);
+  expect(helper.isDate('1/1/2017'))
+    .toEqual(true);
+  expect(helper.isDate(undefined))
+    .toEqual(false);
+});
+
+
+// ////////////////
 // ARRAY HELPERS //
 // ////////////////
 

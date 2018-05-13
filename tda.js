@@ -1,4 +1,5 @@
 const R = require('ramda');
+const moment = require('moment');
 
 const H = require('./helper');
 
@@ -45,14 +46,24 @@ module.exports.getColByIndex = getColByIndex;
 /**
  * getColByName returns column from column name
  * @param {array} 2D array
- * @param {string} columnName 
+ * @param {string} columnName
  *
  * @returns {array} 2D array of the column
  */
-module.exports.getColByName = (a, n) => {
+const getColByName = (a, n) => {
   const index = R.pipe(R.head, R.indexOf(n));
-  return getColByIndex(a, index(a))
-}
+  return getColByIndex(a, index(a));
+};
+module.exports.getColByName = getColByName;
+
+/**
+ * getColValues drops header from column
+ * @param {array} Column with header
+ * 
+ * @returns {array} returns array with only values
+ */
+const getColValues = R.drop(1);
+module.exports.getColValues = getColValues;
 
 /**
  * getColType returns type based on values in column
@@ -60,8 +71,12 @@ module.exports.getColByName = (a, n) => {
  *
  * @returns {string} type of the column
  */
-const getColType = (a, c) => {
+// TODO: is coltype really the right thing?
+const colType = (a, c) => {
+  const values = R.pipe(getColByName, getColValues);
+  console.log();
+};
+module.exports.colType = colType;
 
-}
 
 // ROWS

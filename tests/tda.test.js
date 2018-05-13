@@ -1,6 +1,5 @@
 // TDA - Two dimensional array
 // 2D array is used as the middle ground for transforming data
-
 const T = require('../tda');
 
 const testData = {
@@ -59,6 +58,14 @@ test('getColByName gets column by headerName', () => {
     ]);
 });
 
-test('colType checks string for a coercible type', () => {
-
+test('getColValues drops header from column', () => {
+  expect(T.getColValues([
+    ['col3'],
+    ['r1c3'],
+    ['r2c3'],
+  ]))
+    .toEqual([
+      ['r1c3'],
+      ['r2c3'],
+    ]);
 });
