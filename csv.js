@@ -1,61 +1,64 @@
 const R = require('ramda');
-const fs = require('fs-extra');
 
-
-// impure
-const getFile = filepath => new Promise((resolve, reject) => {
-  fs.readFile(filepath, 'utf-8', (err, data) => {
-    if (err) { reject(err); }
-    resolve(data);
-  });
-});
-
-const readDirectory = filepath => new Promise((resolve, reject) => {
-  fs.readdir(filepath, 'utf-8', (err, data) => {
-    if (err) { reject(err); }
-    resolve(data);
-  });
-});
-
+const H = require('./helper');
 
 // pure
-const split = R.curry((delimiter, string) => string.split(delimiter));
 
-const splitLine = split('\r\n');
-const splitComma = split(',');
+const sanitizeR = R.pipe(H.split('\r'), R.join(''));
+const splitLine = H.split('\n');
+const splitComma = H.split(',');
 
-const headerRow = R.pipe(splitLine, R.head);
-const dataRows = R.pipe(splitLine, R.drop(1));
-
-const addProperty = R.curry((object, pair) => {
-  object[pair[0]] = pair[1];
-  return object;
-});
-
+/**
+ * gets headers from csv string
+ * @param {string} csvString
+ *
+ * @returns {Array} array of headers
+ */
+const headerRow = R.pipe(sanitizeR, splitLine, R.head);
+const dataRows = R.pipe(sanitizeR, splitLine, R.drop(1));
 
 // needs refactor
 const rowToObject = R.curry((headers, values) => {
   const newObject = {};
   const pairs = R.zip(headers, values);
-  R.forEach(addProperty(newObject), pairs);
+  R.forEach(H.addProperty(newObject), pairs);
   return newObject;
 });
 
 
+/**
+ * returns a colleciton of objects from a csv string
+ * @param {string} csvString csv string with linebreaks \n or \n\r
+ *
+ * @returns {Array} collection collection of objects keyed by headers
+ */
 const parse = (csvString) => {
   const headers = splitComma(headerRow(csvString));
   const data = dataRows(csvString);
   const collection = [];
   R.forEach((row) => {
-    collection.push(rowToObject(headers,
-      splitComma(row)));
+    const rowOb = rowToObject(headers, splitComma(row));
+    collection.push(rowOb);
   }, data);
   // console.log(collection);
   return collection;
 };
 
+/**
+ * joins a series of csvs to the header csv
+ * @param {string} headCsv csvString to join to
+ * @param {Array} tailCsvs csvStrings to join to
+ *
+ * @returns {string} full csvString with the tail strings added
+ * */
+module.exports.join = R.curry((headCsv, tailCsvs) => {
+  const dataString = R.join('\n', tailCsvs.map(dataRows));
+  return R.join('\n', [headCsv, dataString]);
+});
 
-const getCSV = R.composeP(parse, getFile);
+/**
+ * pulls folder
+ */
 
-module.exports.get = getCSV;
-module.exports.readdir = readDirectory;
+module.exports.parse = parse;
+module.exports.getHeaders = headerRow;
