@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\LIBO\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add moment
+  C:\Program Files\nodejs\node.exe C:\Users\LIBO\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add currency
 
 PATH: 
   C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\7-Zip;C:\Program Files\Git\cmd;C:\WINDOWS\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps;C:\Go\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Python\Python36-32\Scripts\;C:\Python\Python36-32\;C:\Users\LIBO\AppData\Local\.meteor\;C:\Users\LIBO\AppData\Local\Microsoft\WindowsApps;C:\Working\test0\selenium\webdriver\firefox;C:\Program Files (x86)\Mozilla Firefox;C:\Program Files (x86)\Google\Chrome\Application\chrome.exe;C:\Users\LIBO\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin;C:\Program Files\Microsoft VS Code\bin;C:\Vim\vim80\vim.exe;C:\Users\LIBO\AppData\Roaming\npm
@@ -24,6 +24,7 @@ npm manifest:
     "dependencies": {
       "fs-extra": "^5.0.0",
       "luxon": "^1.2.0",
+      "moment": "^2.22.1",
       "ramda": "^0.25.0"
     },
     "devDependencies": {
@@ -2412,6 +2413,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
     dependencies:
       minimist "0.0.8"
+  
+  moment@^2.22.1:
+    version "2.22.1"
+    resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.1.tgz#529a2e9bf973f259c9643d237fda84de3a26e8ad"
   
   ms@2.0.0:
     version "2.0.0"

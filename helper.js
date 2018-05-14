@@ -1,5 +1,6 @@
 const R = require('ramda');
 const moment = require('moment');
+const currency = require('currency.js');
 
 // /////////////////
 // STRING HELPERS //
@@ -7,12 +8,22 @@ const moment = require('moment');
 
 /**
  * isDate checks if string is a parseable date
+ * TODO: figure out how to split out date functions
  * @param {string} date as string
- * 
+ *
  * @returns {bool} if parsible date by moment
  */
 const isDate = d => moment(d).isValid();
 module.exports.isDate = isDate;
+
+/**
+ * toCurrency converts string to currencyType
+ * @param {string} amount
+ *
+ * @returns {object} currency object equal to the amount
+ */
+const toCurrency = R.pipe(currency, R.prop('value'));
+module.exports.toCurrency = toCurrency;
 
 // /////////////
 // FN HELPERS //
@@ -35,7 +46,7 @@ const isEqual = R.curry((a, b, c) => R.equals(a(c), b(c)));
  *
  * @returns {fn} passthroug
  */
-const trace = R.curry((tag, a) => { console.log('tag', a); return a; });
+const trace = R.curry((tag, a) => { console.log('tag', a); return a; }); //eslint-disable-line
 module.exports.trace = trace;
 
 

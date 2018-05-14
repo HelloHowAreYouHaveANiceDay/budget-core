@@ -1,18 +1,13 @@
 const path = require('path');
-
 const helper = require('../helper');
 
 // ////////////////
 // STRING HELPERS //
 // ////////////////
 
-test('tests string for coercible types', () => {
-  expect(helper.isDate('01/01/1990'))
-    .toEqual(true);
-  expect(helper.isDate('1/1/2017'))
-    .toEqual(true);
-  expect(helper.isDate(undefined))
-    .toEqual(false);
+test('currency', () => {
+  expect(helper.toCurrency('$125.50'))
+    .toEqual(125.5);
 });
 
 
@@ -86,7 +81,7 @@ test('getKeys returns keys of object', () => {
 
 test('isKeyedTable checkes', () => {
   const gamePath = path.join(__dirname, '../example_data/f_game_mock.json');
-  const game = require(gamePath);
+  const game = require(gamePath); //eslint-disable-line
   const test1 = helper.isKeyedTable(game['2016122400'].home.stats.receiving);
   expect(test1)
     .toEqual(true);

@@ -15,6 +15,5 @@ const readDirectory = filepath => new Promise((resolve, reject) => {
 });
 
 
-
 module.exports.readDir = readDirectory;
-module.exports.readFile = readFile;;
+module.exports.readFile = readFile;
