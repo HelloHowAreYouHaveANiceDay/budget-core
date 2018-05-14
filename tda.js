@@ -59,24 +59,80 @@ module.exports.getColByName = getColByName;
 /**
  * getColValues drops header from column
  * @param {array} Column with header
- * 
+ *
  * @returns {array} returns array with only values
  */
 const getColValues = R.drop(1);
 module.exports.getColValues = getColValues;
 
-/**
- * getColType returns type based on values in column
- * @param {array} 2D array column
- *
- * @returns {string} type of the column
- */
-// TODO: is coltype really the right thing?
-const colType = (a, c) => {
-  const values = R.pipe(getColByName, getColValues);
-  console.log();
-};
-module.exports.colType = colType;
 
+/**
+ * renameHeader
+ * @param {array} array
+ * @param {string} header to rename
+ * @param {string} name to rename to
+ *
+ * @returns {array} array
+ */
+
+/**
+ * isDateColumn
+ * @param {array} column
+ *
+ * @returns {bool} column contains date data
+ */
+
+/**
+ * isCurrencyColumn
+ * @param {array} column
+ *
+ * @returns {bool} column contains currency/money data
+ */
+
+/**
+ * isNumberColumn
+ * @param {array} column
+ *
+ * @returns {bool} column can be converted to numbers
+ */
+
+/**
+ * isStringColumn
+ * @param {array} column
+ *
+ * @returns {bool} column contains string data
+ */
+
+/**
+ * convertColumnToDates
+ * @param {array} 2Darray
+ * @param {string} header
+ *
+ * @returns {array}
+ */
+
+/**
+ * convertColumnToCurrencyAmount
+ * @param {array} 2Darray
+ * @param {strng} header
+ *
+ * @returns {array}
+ */
+
+/**
+ * dropColumn
+ * @param {array} 2Darray
+ * @param {string} header
+ *
+ * @returns {array}
+ */
+
+/**
+ * addColumn
+ * @param {array} 2Darray
+ * @param {array} column
+ *
+ * @returns {array}
+ */
 
 // ROWS
