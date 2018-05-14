@@ -2,6 +2,16 @@ const R = require('ramda');
 const moment = require('moment');
 const currency = require('currency.js');
 
+/**
+ * passthrough function for tag logging
+ * @param {string} tab tag for logger
+ * @param {fn} passthrough
+ *
+ * @returns {fn} passthroug
+ */
+const trace = R.curry((tag, a) => { console.log('tag', a); return a; }); //eslint-disable-line
+module.exports.trace = trace;
+
 // /////////////////
 // STRING HELPERS //
 // ////////////////
@@ -16,7 +26,10 @@ const currency = require('currency.js');
 const isDate = d => moment(d).isValid();
 module.exports.isDate = isDate;
 
-/**
+const toDateFromMMDDYYYY = R.partialRight(moment, ['MM-DD-YYYY']);
+module.exports.toDateFromMMDDYYYY = R.pipe(toDateFromMMDDYYYY, trace('date from'));
+
+/*
  * toCurrency converts string to currencyType
  * @param {string} amount
  *
@@ -38,16 +51,6 @@ module.exports.toCurrency = toCurrency;
  * @returns {bool}
  */
 const isEqual = R.curry((a, b, c) => R.equals(a(c), b(c)));
-
-/**
- * passthrough function for tag logging
- * @param {string} tab tag for logger
- * @param {fn} passthrough
- *
- * @returns {fn} passthroug
- */
-const trace = R.curry((tag, a) => { console.log('tag', a); return a; }); //eslint-disable-line
-module.exports.trace = trace;
 
 
 // ////////////////

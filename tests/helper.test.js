@@ -1,4 +1,5 @@
 const path = require('path');
+const moment = require('moment');
 const helper = require('../helper');
 
 // ////////////////
@@ -8,8 +9,26 @@ const helper = require('../helper');
 test('currency', () => {
   expect(helper.toCurrency('$125.50'))
     .toEqual(125.5);
+  expect(helper.toCurrency('-135.00'))
+    .toEqual(-135);
 });
 
+describe('string to dates', () => {
+  let currentTime = moment('01/20/1930', 'MM-DD-YYYY');
+
+  test('toDateFrom', () => {
+    expect(helper.toDateFromMMDDYYYY(currentTime.format('MM-DD-YYYY')))
+      .toBeInstanceOf(moment);
+  });
+
+  // TODO: 'compared values serialize to the same structure. 
+  // Printing internal object structure without calling 'toJSON' instaed.???
+
+  // test('toDatenew', () => {
+  //   expect(helper.toDateFromMMDDYYYY(currentTime.format('M-D-YYYY')))
+  //     .toEqual(currentTime);
+  // });
+});
 
 // ////////////////
 // ARRAY HELPERS //
