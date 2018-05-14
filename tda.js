@@ -74,6 +74,10 @@ module.exports.getColValues = getColValues;
  *
  * @returns {array} array
  */
+const renameHeader = (a, h, r) => {
+  const headers = R.head(a)
+};
+module.exports.renameHeader = renameHeader;
 
 /**
  * isDateColumn

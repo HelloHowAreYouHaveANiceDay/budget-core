@@ -17,17 +17,31 @@ module.exports.trace = trace;
 // ////////////////
 
 /**
- * isDate checks if string is a parseable date
- * TODO: figure out how to split out date functions
+ * converts string date to moment object
+ * @param {string} date as string in month/day/yearjeither 01/02/1990, 1/2/1990 format
+ *
+ * @returns {object} moment object
+ */
+const toDateFromMMDDYYYY = R.partialRight(moment, ['MM-DD-YYYY']);
+module.exports.toDateFromMMDDYYYY = toDateFromMMDDYYYY;
+
+/**
+ * checks if string is a parseable as a MM-DD-YYYY format date
+ * common in documents in america
  * @param {string} date as string
  *
  * @returns {bool} if parsible date by moment
  */
-const isDate = d => moment(d).isValid();
-module.exports.isDate = isDate;
+const isMMDDYYYY = d => toDateFromMMDDYYYY(d).isValid();
+module.exports.isMMDDYYYY = isMMDDYYYY;
 
-const toDateFromMMDDYYYY = R.partialRight(moment, ['MM-DD-YYYY']);
-module.exports.toDateFromMMDDYYYY = R.pipe(toDateFromMMDDYYYY, trace('date from'));
+/**
+ * isCurrency if string is a parseable currency
+ * @param {string} currency as string
+ *
+ * @returns {bool} if parsible currency bycurrency.js
+ */
+
 
 /*
  * toCurrency converts string to currencyType

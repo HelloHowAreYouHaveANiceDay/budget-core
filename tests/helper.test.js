@@ -21,13 +21,12 @@ describe('string to dates', () => {
       .toBeInstanceOf(moment);
   });
 
-  // TODO: 'compared values serialize to the same structure. 
-  // Printing internal object structure without calling 'toJSON' instaed.???
-
-  // test('toDatenew', () => {
-  //   expect(helper.toDateFromMMDDYYYY(currentTime.format('M-D-YYYY')))
-  //     .toEqual(currentTime);
-  // });
+  test('test if date is valid', () => {
+    expect(helper.isMMDDYYYY(currentTime.format('M-D-YYYY')))
+      .toEqual(true);
+    expect(helper.isMMDDYYYY(undefined))
+      .toEqual(false);
+  });
 });
 
 // ////////////////

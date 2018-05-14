@@ -69,3 +69,12 @@ test('getColValues drops header from column', () => {
       ['r2c3'],
     ]);
 });
+
+test('renameHeader renames the header of a column', () => {
+  expect(T.renameHeader(testData.tda), 'col1', 'colOne')
+    .toEqual([
+      ['col1', 'col2', 'col3'],
+      ['r1c1', 'r1c2', 'r1c3'],
+      ['r2c1', 'r2c2', 'r2c3'],
+    ]);
+});
