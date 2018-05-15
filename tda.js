@@ -31,6 +31,18 @@ const headersEqualRowsLength = a => equalsHeadersLength(a)(rowsLength(a));
  */
 module.exports.isTDA = R.allPass([headersEqualRowsLength]);
 
+/**
+ * make2D takes headers and values and combines
+ * @param {array} headers
+ * @param {array} matrix of values
+ *
+ * @returns {array} 2D array with headers preceeding
+ */
+const make2D = R.curry((h, v) => {
+  return R.prepend(h, v);
+});
+
+
 // COLUMNS
 
 /**
@@ -75,7 +87,10 @@ module.exports.getColValues = getColValues;
  * @returns {array} array
  */
 const renameHeader = (a, h, r) => {
-  const headers = R.head(a)
+  const headers = R.head(a);
+  const replacingIndex = R.indexOf(h, headers);
+  headers[replacingIndex] = r;
+  return make2D(headers, getColValues(a));
 };
 module.exports.renameHeader = renameHeader;
 
@@ -85,6 +100,17 @@ module.exports.renameHeader = renameHeader;
  *
  * @returns {bool} column contains date data
  */
+// const isDateColumn = c => {
+//   const values = getColValues(c);
+//   const headers = R.head(c);
+
+// }
+
+// isDateColumn([
+//   ['col1'],
+//   ['01/02/1930'],
+//   ['01/02/1930'],
+// ])
 
 /**
  * isCurrencyColumn

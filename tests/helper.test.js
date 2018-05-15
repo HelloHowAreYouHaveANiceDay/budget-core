@@ -29,6 +29,18 @@ describe('string to dates', () => {
   });
 });
 
+describe('string to currency', () => {
+  let moneyA = "$125.55";
+  let moneyB = "125";
+
+  test('toCurrency', () => {
+    expect(helper.toCurrency(moneyA))
+      .toEqual(125.55);
+    expect(helper.toCurrency(moneyB))
+      .toEqual(125.00);
+  });
+});
+
 // ////////////////
 // ARRAY HELPERS //
 // ////////////////

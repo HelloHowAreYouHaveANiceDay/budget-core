@@ -40,6 +40,8 @@ module.exports.isMMDDYYYY = isMMDDYYYY;
  * @param {string} currency as string
  *
  * @returns {bool} if parsible currency bycurrency.js
+ * NOTE: not needed because toCurrency returns 0 in the event of a null
+ * or undefined value. for now this is the desired behavior
  */
 
 
