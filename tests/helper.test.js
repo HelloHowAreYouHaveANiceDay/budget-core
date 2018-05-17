@@ -14,7 +14,7 @@ test('currency', () => {
 });
 
 describe('string to dates', () => {
-  let currentTime = moment('01/20/1930', 'MM-DD-YYYY');
+  const currentTime = moment('01/20/1930', 'MM-DD-YYYY');
 
   test('toDateFrom', () => {
     expect(helper.toDateFromMMDDYYYY(currentTime.format('MM-DD-YYYY')))
@@ -30,8 +30,8 @@ describe('string to dates', () => {
 });
 
 describe('string to currency', () => {
-  let moneyA = "$125.55";
-  let moneyB = "125";
+  const moneyA = '$125.55';
+  const moneyB = '125';
 
   test('toCurrency', () => {
     expect(helper.toCurrency(moneyA))

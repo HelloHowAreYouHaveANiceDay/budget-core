@@ -78,3 +78,37 @@ test('renameHeader renames the header of a column', () => {
       ['r2c1', 'r2c2', 'r2c3'],
     ]);
 });
+
+test('isDateColumn determins whether column contains dates', () => {
+  expect(T.isDateColumn([
+    ['col1'],
+    ['01/02/1930'],
+    ['01/02/1930'],
+  ])).toEqual(true);
+
+  expect(T.isDateColumn([
+    ['col1'],
+    ['12'],
+    ['34'],
+  ])).toEqual(false);
+});
+
+test('isCurrency determins whether column contains dates', () => {
+  expect(T.isCurrencyColumn([
+    ['col1'],
+    ['$126.50'],
+    ['$133.50'],
+  ])).toEqual(true);
+
+  expect(T.isCurrencyColumn([
+    ['col1'],
+    ['126.50'],
+    ['133.50'],
+  ])).toEqual(true);
+
+  expect(T.isCurrencyColumn([
+    ['col1'],
+    ['traffic'],
+    ['cones'],
+  ])).toEqual(false);
+});

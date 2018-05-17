@@ -1,9 +1,8 @@
 const R = require('ramda');
-const moment = require('moment');
 
 const H = require('./helper');
 
-const tag = H.trace('tag');
+const tag = H.trace('tag'); /* eslint no-unused-vars: 0 */
 
 // rowsLength :: [[]] => []
 const rowsLength = R.pipe(R.map(R.length));
@@ -18,7 +17,9 @@ const equalsHeadersLength = R.pipe(headersLength, R.equals, R.all);
 const getValByIndex = R.curry((i, a) => a[i]);
 
 // graft :: a => [a]
-const graft = a => [a];
+const graft = R.map(a => [a]);
+
+graft('a', 'b');
 
 const headersEqualRowsLength = a => equalsHeadersLength(a)(rowsLength(a));
 
@@ -38,9 +39,7 @@ module.exports.isTDA = R.allPass([headersEqualRowsLength]);
  *
  * @returns {array} 2D array with headers preceeding
  */
-const make2D = R.curry((h, v) => {
-  return R.prepend(h, v);
-});
+const make2D = R.curry((h, v) => R.prepend(h, v));
 
 
 // COLUMNS
@@ -52,7 +51,7 @@ const make2D = R.curry((h, v) => {
  *
  * @returns {array} 2D array of the column
  */
-const getColByIndex = (a, i) => R.map(graft, R.map(getValByIndex(i), a));
+const getColByIndex = (a, i) => graft(R.map(getValByIndex(i), a));
 module.exports.getColByIndex = getColByIndex;
 
 /**
@@ -100,24 +99,47 @@ module.exports.renameHeader = renameHeader;
  *
  * @returns {bool} column contains date data
  */
-// const isDateColumn = c => {
-//   const values = getColValues(c);
-//   const headers = R.head(c);
+const isDateColumn = R.pipe(
+  getColValues, 
+  R.all(H.isMMDDYYYY),
+);
 
-// }
+module.exports.isDateColumn = isDateColumn;
 
-// isDateColumn([
-//   ['col1'],
-//   ['01/02/1930'],
-//   ['01/02/1930'],
-// ])
 
 /**
  * isCurrencyColumn
+ * is truthy, any parsable currency string is considered true. including number columns
  * @param {array} column
  *
  * @returns {bool} column contains currency/money data
  */
+const isCurrencyColumn = R.pipe(
+  getColValues,
+  R.map(R.map(H.toCurrency)),
+  R.flatten,
+  R.all(R.lt(0)),
+);
+
+module.exports.isCurrencyColumn = isCurrencyColumn;
+
+isCurrencyColumn([
+  ['col1'],
+  ['$126.50'],
+  ['$133.50'],
+]);
+
+isCurrencyColumn([
+  ['col1'],
+  ['126.50'],
+  ['133.50'],
+]);
+
+isCurrencyColumn([
+  ['col1'],
+  ['traffic'],
+  ['cones'],
+]);
 
 /**
  * isNumberColumn
