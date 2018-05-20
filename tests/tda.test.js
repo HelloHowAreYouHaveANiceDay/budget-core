@@ -1,6 +1,7 @@
 // TDA - Two dimensional array
 // 2D array is used as the middle ground for transforming data
-const T = require('../tda');
+const T = require('../src/tda');
+const moment = require('moment');
 
 const testData = {
   tda: [
@@ -68,4 +69,105 @@ test('getColValues drops header from column', () => {
       ['r1c3'],
       ['r2c3'],
     ]);
+});
+
+test('renameHeader renames the header of a column', () => {
+  expect(T.renameHeader(testData.tda, 'col1', 'colOne'))
+    .toEqual([
+      ['colOne', 'col2', 'col3'],
+      ['r1c1', 'r1c2', 'r1c3'],
+      ['r2c1', 'r2c2', 'r2c3'],
+    ]);
+});
+
+test('isDateColumn determins whether column contains dates', () => {
+  expect(T.isDateColumn([
+    ['col1'],
+    ['01/02/1930'],
+    ['01/02/1930'],
+  ])).toEqual(true);
+
+  expect(T.isDateColumn([
+    ['col1'],
+    ['12'],
+    ['34'],
+  ])).toEqual(false);
+});
+
+test('isCurrency determines whether column contains currency', () => {
+  expect(T.isCurrencyColumn([
+    ['col1'],
+    ['$126.50'],
+    ['$133.50'],
+  ])).toEqual(true);
+
+  expect(T.isCurrencyColumn([
+    ['col1'],
+    ['126.50'],
+    ['133.50'],
+  ])).toEqual(true);
+
+  expect(T.isCurrencyColumn([
+    ['col1'],
+    ['traffic'],
+    ['cones'],
+  ])).toEqual(false);
+});
+
+test('isNumberColumn determines whether column contains numbers', () => {
+  expect(T.isNumberColumn([
+    ['col1'],
+    ['$126.50'],
+    ['$133.50'],
+  ])).toEqual(false);
+
+  expect(T.isNumberColumn([
+    ['col1'],
+    ['126.50'],
+    ['133.50'],
+  ])).toEqual(true);
+
+  expect(T.isNumberColumn([
+    ['col1'],
+    ['traffic'],
+    ['cones'],
+  ])).toEqual(false);
+});
+
+
+//TODO: testing time is weird. look this up
+// test('converColumnToDates', () => {
+//   expect(
+//     T.convertColumnToDates([
+//       ['col1'],
+//       ['01/02/1930'],
+//       ['01/02/1930'],
+//     ])
+//   ).toEqual([
+//     ['col1'],
+//     [moment('01/02/1930').toString()],
+//     [moment('01/02/1930').toString()],
+//   ]);
+// });
+
+test('convertColumnToCurrencyAmount', () => {
+  expect(T.convertColumnToCurrencyAmount([
+    ['col1'],
+    ['$126.50'],
+    ['$133.50'],
+  ])).toEqual([
+    ['col1'],
+    [126.50],
+    [133.50],
+  ]);
+
+  expect(T.convertColumnToCurrencyAmount([
+    ['col1'],
+    ['126.50'],
+    ['133.50'],
+  ])).toEqual([
+    ['col1'],
+    [126.50],
+    [133.50],
+  ]);
 });

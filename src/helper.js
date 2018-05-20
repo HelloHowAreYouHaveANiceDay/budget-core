@@ -1,18 +1,58 @@
 const R = require('ramda');
 const moment = require('moment');
+const currency = require('currency.js');
+
+/**
+ * passthrough function for tag logging
+ * @param {string} tab tag for logger
+ * @param {fn} passthrough
+ *
+ * @returns {fn} passthroug
+ */
+const trace = R.curry((tag, a) => { console.log('tag', a); return a; }); //eslint-disable-line
+module.exports.trace = trace;
 
 // /////////////////
 // STRING HELPERS //
 // ////////////////
 
 /**
- * isDate checks if string is a parseable date
+ * converts string date to moment object
+ * @param {string} date as string in month/day/yearjeither 01/02/1990, 1/2/1990 format
+ *
+ * @returns {object} moment object
+ */
+const toDateFromMMDDYYYY = R.partialRight(moment, ['MM-DD-YYYY']);
+module.exports.toDateFromMMDDYYYY = toDateFromMMDDYYYY;
+
+/**
+ * checks if string is a parseable as a MM-DD-YYYY format date
+ * common in documents in america
  * @param {string} date as string
- * 
+ *
  * @returns {bool} if parsible date by moment
  */
-const isDate = d => moment(d).isValid();
-module.exports.isDate = isDate;
+const isMMDDYYYY = d => toDateFromMMDDYYYY(d).isValid();
+module.exports.isMMDDYYYY = isMMDDYYYY;
+
+/**
+ * isCurrency if string is a parseable currency
+ * @param {string} currency as string
+ *
+ * @returns {bool} if parsible currency bycurrency.js
+ * NOTE: not needed because toCurrency returns 0 in the event of a null
+ * or undefined value. for now this is the desired behavior
+ */
+
+
+/*
+ * toCurrency converts string to currencyType
+ * @param {string} amount
+ *
+ * @returns {object} currency object equal to the amount
+ */
+const toCurrency = R.pipe(currency, R.prop('value'));
+module.exports.toCurrency = toCurrency;
 
 // /////////////
 // FN HELPERS //
@@ -27,16 +67,6 @@ module.exports.isDate = isDate;
  * @returns {bool}
  */
 const isEqual = R.curry((a, b, c) => R.equals(a(c), b(c)));
-
-/**
- * passthrough function for tag logging
- * @param {string} tab tag for logger
- * @param {fn} passthrough
- *
- * @returns {fn} passthroug
- */
-const trace = R.curry((tag, a) => { console.log('tag', a); return a; });
-module.exports.trace = trace;
 
 
 // ////////////////

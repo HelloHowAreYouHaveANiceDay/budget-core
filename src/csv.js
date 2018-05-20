@@ -27,7 +27,7 @@ const rowToObject = R.curry((headers, values) => {
 
 
 /**
- * returns a colleciton of objects from a csv string
+ * returns a collection of objects from a csv string
  * @param {string} csvString csv string with linebreaks \n or \n\r
  *
  * @returns {Array} collection collection of objects keyed by headers
@@ -43,6 +43,21 @@ const parse = (csvString) => {
   // console.log(collection);
   return collection;
 };
+
+module.exports.parse = parse;
+
+/**
+ * returns table from csvString
+ * @param {string} csvString
+ *
+ * @returns {array} table 
+ */
+const parseTable = (csvString) => {
+  const headers = (headerRow(csvString));
+  const data = R.pipe(dataRows, R.map(splitComma));
+  return R.prepend(headers, data(csvString));
+};
+module.exports.parseTable = parseTable;
 
 /**
  * joins a series of csvs to the header csv
@@ -60,5 +75,4 @@ module.exports.join = R.curry((headCsv, tailCsvs) => {
  * pulls folder
  */
 
-module.exports.parse = parse;
 module.exports.getHeaders = headerRow;

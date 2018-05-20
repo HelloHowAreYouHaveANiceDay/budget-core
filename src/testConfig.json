@@ -1,0 +1,15 @@
+{
+  "name":"test",
+  "version": "0.0.1",
+  "root": "c:\\user\\lili\\dropbox\\repo\\budget_core\\example_data",
+  "folders": [
+    {
+      "path": "",
+      "type": "csv",
+      "partition": "Date",
+      "files": [
+        "testFile1.csv"
+      ]
+    }
+  ]
+}}

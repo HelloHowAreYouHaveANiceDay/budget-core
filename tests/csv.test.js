@@ -1,5 +1,5 @@
-const folder = require('../folder');
-const csv = require('../csv');
+const folder = require('../src/folder');
+const csv = require('../src/csv');
 
 test('getHeaders gets headers from string', () => {
   const mock = folder.readFile('./example_data/chase_cc_mock.csv');

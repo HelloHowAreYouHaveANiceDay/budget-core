@@ -1,20 +1,46 @@
 const path = require('path');
+const moment = require('moment');
 
-const helper = require('../helper');
+const helper = require('../src/helper');
 
 // ////////////////
 // STRING HELPERS //
 // ////////////////
 
-test('tests string for coercible types', () => {
-  expect(helper.isDate('01/01/1990'))
-    .toEqual(true);
-  expect(helper.isDate('1/1/2017'))
-    .toEqual(true);
-  expect(helper.isDate(undefined))
-    .toEqual(false);
+test('currency', () => {
+  expect(helper.toCurrency('$125.50'))
+    .toEqual(125.5);
+  expect(helper.toCurrency('-135.00'))
+    .toEqual(-135);
 });
 
+describe('string to dates', () => {
+  const currentTime = moment('01/20/1930', 'MM-DD-YYYY');
+
+  test('toDateFrom', () => {
+    expect(helper.toDateFromMMDDYYYY(currentTime.format('MM-DD-YYYY')))
+      .toBeInstanceOf(moment);
+  });
+
+  test('test if date is valid', () => {
+    expect(helper.isMMDDYYYY(currentTime.format('M-D-YYYY')))
+      .toEqual(true);
+    expect(helper.isMMDDYYYY(undefined))
+      .toEqual(false);
+  });
+});
+
+describe('string to currency', () => {
+  const moneyA = '$125.55';
+  const moneyB = '125';
+
+  test('toCurrency', () => {
+    expect(helper.toCurrency(moneyA))
+      .toEqual(125.55);
+    expect(helper.toCurrency(moneyB))
+      .toEqual(125.00);
+  });
+});
 
 // ////////////////
 // ARRAY HELPERS //
@@ -86,7 +112,7 @@ test('getKeys returns keys of object', () => {
 
 test('isKeyedTable checkes', () => {
   const gamePath = path.join(__dirname, '../example_data/f_game_mock.json');
-  const game = require(gamePath);
+  const game = require(gamePath); //eslint-disable-line
   const test1 = helper.isKeyedTable(game['2016122400'].home.stats.receiving);
   expect(test1)
     .toEqual(true);
