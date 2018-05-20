@@ -1,6 +1,7 @@
 const path = require('path');
 const moment = require('moment');
-const helper = require('../helper');
+
+const helper = require('../src/helper');
 
 // ////////////////
 // STRING HELPERS //

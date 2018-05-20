@@ -1,8 +1,8 @@
 const path = require('path');
 const R = require('ramda');
 
-const J = require('../json');
-const CSV = require('../csv');
+const J = require('../src/json');
+const CSV = require('../src/csv');
 
 test('getKeys gets Keys from JSON file', () => {
   const filepath = path.join(__dirname, '../example_data/f_players_mock.json');

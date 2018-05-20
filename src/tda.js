@@ -94,18 +94,16 @@ const renameHeader = (a, h, r) => {
 module.exports.renameHeader = renameHeader;
 
 /**
- * isDateColumn
+ * isDateColuCnrry
  * @param {array} column
  *
  * @returns {bool} column contains date data
  */
 const isDateColumn = R.pipe(
-  getColValues, 
+  getColValues,
   R.all(H.isMMDDYYYY),
 );
-
 module.exports.isDateColumn = isDateColumn;
-
 
 /**
  * isCurrencyColumn
@@ -116,37 +114,25 @@ module.exports.isDateColumn = isDateColumn;
  */
 const isCurrencyColumn = R.pipe(
   getColValues,
-  R.map(R.map(H.toCurrency)),
   R.flatten,
+  R.map(H.toCurrency),
   R.all(R.lt(0)),
 );
-
 module.exports.isCurrencyColumn = isCurrencyColumn;
-
-isCurrencyColumn([
-  ['col1'],
-  ['$126.50'],
-  ['$133.50'],
-]);
-
-isCurrencyColumn([
-  ['col1'],
-  ['126.50'],
-  ['133.50'],
-]);
-
-isCurrencyColumn([
-  ['col1'],
-  ['traffic'],
-  ['cones'],
-]);
 
 /**
  * isNumberColumn
  * @param {array} column
- *
+ *rrC
  * @returns {bool} column can be converted to numbers
  */
+const isNumberColumn = R.pipe(
+  getColValues,
+  R.flatten,
+  R.map(Number),
+  R.all(R.lt(0)),
+);
+module.exports.isNumberColumn = isNumberColumn;
 
 /**
  * isStringColumn
@@ -162,6 +148,15 @@ isCurrencyColumn([
  *
  * @returns {array}
  */
+const convertColumnToDates = (c) => {
+  const headers = R.head(c);
+  const values = getColValues(c);
+  const valuesDates = R.map(R.map(H.toDateFromMMDDYYYY));
+  return R.prepend(headers, valuesDates(values));
+};
+
+module.exports.convertColumnToDates = convertColumnToDates;
+
 
 /**
  * convertColumnToCurrencyAmount
@@ -170,6 +165,14 @@ isCurrencyColumn([
  *
  * @returns {array}
  */
+const convertColumnToCurrencyAmount = (c) => {
+  const headers = R.head(c);
+  const values = getColValues(c);
+  const valuesCurrency = R.map(R.map(H.toCurrency));
+  return R.prepend(headers, valuesCurrency(values));
+};
+
+module.exports.convertColumnToCurrencyAmount = convertColumnToCurrencyAmount;
 
 /**
  * dropColumn
@@ -178,6 +181,23 @@ isCurrencyColumn([
  *
  * @returns {array}
  */
+const dropColumn = (a, h) => {
+  const colIndex = R.pipe(R.head, R.flatten, R.indexOf(h))(a);
+  const drop = R.map(R.remove(colIndex, 1));
+  return drop(a);
+};
+
+dropColumn([
+  ['dates', 'numbers', 'currency'],
+  ['05/07/2017', '11.11', '$11.11'],
+  ['10/08/2017', '11.11', '$11.11'],
+], 'numbers');
+
+dropColumn([
+  ['dates', 'numbers', 'currency'],
+  ['05/07/2017', '11.11', '$11.11'],
+  ['10/08/2017', '11.11', '$11.11'],
+], 'dates');
 
 /**
  * addColumn

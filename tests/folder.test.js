@@ -1,4 +1,4 @@
-const folder = require('../folder');
+const folder = require('../src/folder');
 
 test('readDirectory gets file names', () => {
   expect.assertions(1);

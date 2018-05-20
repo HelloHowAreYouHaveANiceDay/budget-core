@@ -1,6 +1,7 @@
 // TDA - Two dimensional array
 // 2D array is used as the middle ground for transforming data
-const T = require('../tda');
+const T = require('../src/tda');
+const moment = require('moment');
 
 const testData = {
   tda: [
@@ -93,7 +94,7 @@ test('isDateColumn determins whether column contains dates', () => {
   ])).toEqual(false);
 });
 
-test('isCurrency determins whether column contains dates', () => {
+test('isCurrency determines whether column contains currency', () => {
   expect(T.isCurrencyColumn([
     ['col1'],
     ['$126.50'],
@@ -111,4 +112,62 @@ test('isCurrency determins whether column contains dates', () => {
     ['traffic'],
     ['cones'],
   ])).toEqual(false);
+});
+
+test('isNumberColumn determines whether column contains numbers', () => {
+  expect(T.isNumberColumn([
+    ['col1'],
+    ['$126.50'],
+    ['$133.50'],
+  ])).toEqual(false);
+
+  expect(T.isNumberColumn([
+    ['col1'],
+    ['126.50'],
+    ['133.50'],
+  ])).toEqual(true);
+
+  expect(T.isNumberColumn([
+    ['col1'],
+    ['traffic'],
+    ['cones'],
+  ])).toEqual(false);
+});
+
+
+//TODO: testing time is weird. look this up
+// test('converColumnToDates', () => {
+//   expect(
+//     T.convertColumnToDates([
+//       ['col1'],
+//       ['01/02/1930'],
+//       ['01/02/1930'],
+//     ])
+//   ).toEqual([
+//     ['col1'],
+//     [moment('01/02/1930').toString()],
+//     [moment('01/02/1930').toString()],
+//   ]);
+// });
+
+test('convertColumnToCurrencyAmount', () => {
+  expect(T.convertColumnToCurrencyAmount([
+    ['col1'],
+    ['$126.50'],
+    ['$133.50'],
+  ])).toEqual([
+    ['col1'],
+    [126.50],
+    [133.50],
+  ]);
+
+  expect(T.convertColumnToCurrencyAmount([
+    ['col1'],
+    ['126.50'],
+    ['133.50'],
+  ])).toEqual([
+    ['col1'],
+    [126.50],
+    [133.50],
+  ]);
 });
